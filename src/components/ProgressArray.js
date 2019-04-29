@@ -8,13 +8,14 @@ export default class ProgressArray extends React.Component {
       <div style={styles.progressArr}>
         {this.props.length.map((i, index) =>
           <Progress
-            key={index}
+            key={this.props.progress.storyId+index}
             width={1 / this.props.length.length}
             next={this.props.next}
             defaultInterval={this.props.defaultInterval}
             videoDuration={this.props.videoDuration}
             currentStory={this.props.currentStory}
             active={i === this.props.progress.id ? 1 : (i < this.props.progress.id ? 2 : 0)}
+            storyId={this.props.progress.storyId}
             pause={this.props.pause}
             bufferAction={this.props.bufferAction}
           />)}

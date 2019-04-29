@@ -20,35 +20,35 @@ export default class ReactInstaStories extends Component {
   }
 
   pause() {
-    if(this.c) {
+    if (this.c) {
       this.c.pause('pause')
       return true
     } else return false
   }
 
   play() {
-    if(this.c) {
+    if (this.c) {
       this.c.pause('play')
       return true
     } else return false
   }
 
   previous() {
-    if(this.c) {
+    if (this.c) {
       this.c.previous()
       return true
     } else return false
   }
 
   next() {
-    if(this.c) {
+    if (this.c) {
       this.c.next()
       return true
     } else return false
   }
 
   toggleSeeMore(show) {
-    if(this.c) {
+    if (this.c) {
       return this.c.toggleMore(show)
     } else return false
   }
@@ -57,14 +57,22 @@ export default class ReactInstaStories extends Component {
     return (
       <div>
         <Container
-          ref={c => this.c = c}
+          ref={c => (this.c = c)}
           stories={this.props.stories}
           defaultInterval={this.props.defaultInterval}
           width={this.props.width}
           height={this.props.height}
+          swipeThreshold={this.props.swipeThreshold}
           loader={this.props.loader}
           header={this.props.header}
           storyContentStyles={this.props.storyStyles}
+          initialIndex={this.props.initialIndex}
+          storyId={this.props.storyId}
+          onStoryChange={this.props.onStoryChange}
+          navigate={this.props.navigate}
+          isMobile={this.props.isMobile}
+          componentStyles={this.props.componentStyles}
+          // fastAverageColor={this.props.fastAverageColor}
         />
       </div>
     )
@@ -76,7 +84,15 @@ ReactInstaStories.propTypes = {
   defaultInterval: PropTypes.number,
   width: PropTypes.number,
   height: PropTypes.number,
+  swipeThreshold: PropTypes.number,
   loader: PropTypes.element,
   header: PropTypes.element,
-  storyStyles: PropTypes.object
+  storyStyles: PropTypes.object,
+  initialIndex: PropTypes.number,
+  storyId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  onStoryChange: PropTypes.func,
+  navigate: PropTypes.func,
+  isMobile: PropTypes.bool,
+  componentStyles: PropTypes.object
+  // fastAverageColor: PropTypes.func
 }
