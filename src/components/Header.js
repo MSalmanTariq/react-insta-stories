@@ -2,13 +2,19 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const header = props => {
-  return <div style={styles.main}>
-    {props.profileImage && <div><img style={styles.img} src={props.profileImage} /></div>}
-    <span style={styles.text}>
-      <p style={styles.heading}>{props.heading}</p>
-      <p style={styles.subheading}>{props.subheading}</p>
-    </span>
-  </div>
+  return (
+    <div style={styles.main} onClick={() => props.navigate(props.link)}>
+      {props.profileImage && (
+        <div>
+          <img style={styles.img} src={props.profileImage} />
+        </div>
+      )}
+      <span style={styles.text}>
+        <p style={styles.heading}>{props.heading}</p>
+        <p style={styles.subheading}>{props.subheading}</p>
+      </span>
+    </div>
+  )
 }
 
 const styles = {
@@ -42,7 +48,9 @@ const styles = {
 header.propTypes = {
   heading: PropTypes.string,
   subheading: PropTypes.string,
-  profileImage: PropTypes.string
+  profileImage: PropTypes.string,
+  navigate: PropTypes.func,
+  link: PropTypes.string
 }
 
 export default header
