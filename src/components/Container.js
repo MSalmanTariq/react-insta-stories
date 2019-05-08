@@ -16,6 +16,7 @@ export default class Container extends React.Component {
     this.defaultInterval = 4000
     this.width = props.width || 360
     this.height = props.height || 640
+    this.doNotPause = false
   }
 
   componentDidMount() {
@@ -71,15 +72,28 @@ export default class Container extends React.Component {
     this.pause('play')
   }
 
+  togglePause = () => {
+    if (!this.doNotPause) {
+      this.doNotPause = true
+      setTimeout(() => {
+        this.doNotPause = false
+      }, 200)
+    }
+  }
+
   debouncePause = e => {
     //  e.preventDefault()
     this.mousedownId = setTimeout(() => {
-      this.pause('pause')
+      if (!this.doNotPause) {
+        this.pause('pause')
+      } else {
+      }
     }, 200)
   }
 
   mouseUp = (e, type) => {
     //  e.preventDefault()
+
     this.mousedownId && clearTimeout(this.mousedownId)
     if (this.state.pause) {
       if (this.story.state.loaded) {
@@ -103,22 +117,12 @@ export default class Container extends React.Component {
     } else return false
   }
   changeView = e => {
+    this.togglePause()
     if (e.type === 'swl') {
       this.props.onStoryChange(this.state, 'next')
-      if (this.story.state.loaded) {
-        this.play()
-      }
     } else if (e.type === 'swr') {
       this.props.onStoryChange(this.state, 'previous')
-      if (this.story.state.loaded) {
-        this.play()
-      }
-    } /* else if (e.type === 'swu') {
-      this.props.onSeeMore(this.props.stories[this.state.currentId].seeMore)
-      if (this.story.state.loaded) {
-        this.play()
-      }
-    } */
+    } 
   }
   touchHandler = d => {
     var ce = function(e, n) {

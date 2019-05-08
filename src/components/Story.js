@@ -21,7 +21,7 @@ export default class Story extends React.Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if (this.props.story !== prevProps.story) {
+    if (this.props.story.id !== prevProps.story.id) {
       if (!this.props.story.url && this.props.story.type !== 'video') {
         this.pauseId && clearTimeout(this.pauseId)
         this.props.action('play', true)
